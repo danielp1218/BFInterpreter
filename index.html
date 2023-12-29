@@ -6,9 +6,10 @@
   <style>
   </style>
 </head>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <body>
-<div>
-    <h1>
+<div class="info">
+    <h1 style="font-weight:bold;font-size:46px">
         Brainf*** Interpreter
     </h1>
     <p>
@@ -29,31 +30,4 @@
     <button id="run" onclick="start()">Run</button>
 </body>
 </html>
-<style>
-    body {
-        margin: 0;
-        padding: 40px;
-        font-family: sans-serif;
-    }
-    #output{
-        height: 88.3%;
-        width: 100%;
-    }
-    #input{
-        height: 10%;
-        width: 100%;
-    }
-    .halfblock {
-        width: 50%;
-        height: 90%;
-    }
-    .container {
-        display: flex;
-        height: 76vh;
-    }
-    textarea {
-        resize:none;
-        white-space: pre-wrap;
-    }
-</style>
 <script src="index.js"></script>
