@@ -11,76 +11,49 @@
     <h1>
         Brainf*** Interpreter
     </h1>
+    <p>
+        Read this if confused:
+        <a href="https://en.wikipedia.org/wiki/Brainfuck" target="_blank">
+            Brainfuck - Wikipedia
+        </a>
+    </p>
+
 </div>
     <div class="container">
-        <textarea id="input" name="test"> </textarea>
-        <textarea id="output" name="test"> </textarea>
+        <label for="code"></label><textarea id="code" class="halfblock" name="test"> </textarea>
+        <div class="halfblock">
+            <label for="output"></label><textarea id="output" name="test" placeholder="Console" readonly></textarea>
+            <label for="input"></label><textarea id="input" name="test" placeholder="Input" readonly></textarea>
+        </div>
     </div>
-    <button onclick="start()">Run</button>
+    <button id="run" onclick="start()">Run</button>
 </body>
 </html>
 <style>
+    body {
+        margin: 0;
+        padding: 40px;
+        font-family: sans-serif;
+    }
+    #output{
+        height: 88.3%;
+        width: 100%;
+    }
+    #input{
+        height: 10%;
+        width: 100%;
+    }
+    .halfblock {
+        width: 50%;
+        height: 90%;
+    }
     .container {
         display: flex;
         height: 76vh;
     }
     textarea {
         resize:none;
-        width: 50%;
-        height: 90%;
+        white-space: pre-wrap;
     }
 </style>
-<script>
-    //brainfuck parser
-    let out, pos, instructions, memory, ops;
-    function start(){
-        instructions = document.getElementById("input").value;
-        memory = Array(3000).fill(0);
-        pos = 0;
-        ops = 0;
-        out = "";
-        run(0);
-        console.log(out);
-        document.getElementById("output").value = out;
-    }
-
-    function run(start){
-        console.log("run " + start + " " +instructions.charAt(start));
-        for(let x = start, symbol ; x < instructions.length ; ++x, ++ops){
-            if(ops > 10000000){
-                out += "ERROR";
-                console.log("Exceeded operation limit");
-                return instructions.length;
-            }
-            symbol = instructions.charAt(x);
-            if(symbol === '<'){
-                --pos;
-            } else if (symbol==='>'){
-                ++pos;
-            } else if (symbol === '.'){
-                out += String.fromCharCode(memory[pos]);
-                console.log("add " + String.fromCharCode(memory[pos]));
-            } else if (symbol ==='-'){
-                --memory[pos];
-            } else if(symbol === '+'){
-                ++memory[pos];
-            } else if(symbol === '['){
-                x = run(x+1);
-            } else if(symbol === ']'){
-                if(memory[pos] === 0){
-                    return x;
-                } else {
-                    x = start-1;
-                }
-            } else if (symbol === ','){
-                memory[pos] = prompt("Enter a character: ").charCodeAt(0);
-            }
-            console.log(x);
-        }
-        console.log(pos);
-        return instructions.length;
-    }
-
-
-
-</script>
+<script src="index.js"></script>
