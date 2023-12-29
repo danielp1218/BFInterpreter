@@ -10,8 +10,9 @@ function init() {
 window.onload = init;
 
 
-let pos, instructions, memory, ops, inputQueue = [];
+let pos, instructions, memory, ops, inputQueue;
 async function start(){
+    inputQueue = [];
     runButton.disabled = true;
     out.value = "";
     instructions = code.value;
@@ -58,19 +59,20 @@ async function run(start){
             out.scrollTop = out.scrollHeight;
             while(inputQueue.length <= 0){
                 input.readOnly = false;
+                input.style.outline = "2px solid #0060df";
                 await waitForEnter();
                 for(let x = 0 ; x < input.value.length ; ++x){
                     inputQueue.push(input.value.charCodeAt(x));
                 }
-                inputQueue.push(10); //add new line
-                console.log(inputQueue);
-                out.value+=input.value+"\n";
+                inputQueue.push(10);
+                out.value += input.value + "\n";
                 input.value = "";
-                console.log(input.value);
+                input.style.outline = "none";
                 input.readOnly = true;
             }
             memory[pos] = inputQueue[0];
             inputQueue.shift();
+            console.log(inputQueue);
         }
     }
     return instructions.length;
@@ -79,7 +81,8 @@ function waitForEnter() {
     return new Promise((resolve) => {
         document.addEventListener('keydown', onKeyHandler);
         function onKeyHandler(e) {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' ) {
+                e.preventDefault();
                 document.removeEventListener('keydown', onKeyHandler);
                 resolve();
             }
