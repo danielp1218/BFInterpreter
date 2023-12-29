@@ -38,9 +38,17 @@ async function run(start){
         } else if (symbol === '.'){
             out.value += String.fromCharCode(memory[pos]);
         } else if (symbol ==='-'){
-            --memory[pos];
+            if(memory[pos] > 0){
+                --memory[pos];
+            } else{
+                memory[pos] = 255;
+            }
         } else if(symbol === '+'){
-            ++memory[pos];
+            if(memory[pos] < 255){
+                ++memory[pos];
+            } else{
+                memory[pos] = 0;
+            }
         } else if(symbol === '['){ //SHOULD REWRITE THIS SECTION
             if(memory[pos] !== 0){
                 x = await run(x+1);
@@ -59,7 +67,6 @@ async function run(start){
             out.scrollTop = out.scrollHeight;
             while(inputQueue.length <= 0){
                 input.readOnly = false;
-                input.style.outline = "2px solid #0060df";
                 await waitForEnter();
                 for(let x = 0 ; x < input.value.length ; ++x){
                     inputQueue.push(input.value.charCodeAt(x));
@@ -67,7 +74,6 @@ async function run(start){
                 inputQueue.push(10);
                 out.value += input.value + "\n";
                 input.value = "";
-                input.style.outline = "none";
                 input.readOnly = true;
             }
             memory[pos] = inputQueue[0];

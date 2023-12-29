@@ -1,5 +1,5 @@
 body {
-    background-color: #c1c1c1;
+    background-image: linear-gradient(to top left, #6a6a6a, #ababab);
     margin: 0;
     padding: 10px 40px 40px;
     font-family: sans-serif;
@@ -9,9 +9,12 @@ body {
     width: 100%;
     outline:0;
 }
-#input{
+#input {
     height: 10%;
     width: 100%;
+    outline: 2px solid #0060df;
+}
+#input:read-only{
     outline:0;
 }
 
@@ -51,4 +54,10 @@ button:active{
 button:disabled{
     background-color: #252525;
     color: #5f5f5f;
+}
+a {
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
 }
