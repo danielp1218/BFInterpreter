@@ -1,1 +1,1 @@
-BF Interpreter, that's all it really is
+A simple and clean BF Interpreter.
