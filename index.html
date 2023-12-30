@@ -30,13 +30,15 @@
 
 </div>
 <div class="container">
-    <label for="code"></label><textarea id="code" class="halfblock" name="test" placeholder="BF Code"> </textarea>
+    <label for="code"></label><textarea id="code" class="halfblock" name="test" placeholder="BF Code"></textarea>
     <div class="halfblock">
         <label for="output"></label><textarea id="output" name="test" placeholder="Console" readonly></textarea>
         <label for="input"></label><textarea id="input" name="test" placeholder="Input" readonly></textarea>
     </div>
 </div>
 <button id="run" onclick="start()">Run</button>
+<p>Developer tools:<br>
+There are a few developer tools used by this interpreter. The ~ character will console log the memory array. The * character suspends the program for 1s.</p>
 </body>
 </html>
 <script src="index.js"></script>

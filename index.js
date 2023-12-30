@@ -2,6 +2,12 @@ const out = document.getElementById("output");
 const input = document.getElementById("input");
 const code = document.getElementById("code");
 const runButton = document.getElementById("run");
+let sleepSetTimeout_ctrl;
+
+function sleep(ms) {
+    clearInterval(sleepSetTimeout_ctrl);
+    return new Promise(resolve => sleepSetTimeout_ctrl = setTimeout(resolve, ms));
+}
 
 function init() {
     //clear output
@@ -24,7 +30,6 @@ async function start() {
     ops = 0;
     await run(0);
     runButton.disabled = false;
-    console.log(memory);
 }
 
 async function run(start) {
@@ -56,8 +61,14 @@ async function run(start) {
             if (memory[pos] !== 0) {
                 x = await run(x + 1);
             } else {
-                while (instructions.charAt(x) !== ']') {
+                let count = 1;
+                while (count > 0) {
                     ++x;
+                    if (instructions.charAt(x) === '[') {
+                        ++count;
+                    } else if (instructions.charAt(x) === ']') {
+                        --count;
+                    }
                 }
             }
         } else if (symbol === ']') {
@@ -75,13 +86,17 @@ async function run(start) {
                     inputQueue.push(input.value.charCodeAt(x));
                 }
                 inputQueue.push(10);
-                out.value += input.value + "\n";
+                out.value += "You: " + input.value + "\n";
                 input.value = "";
                 input.readOnly = true;
             }
             memory[pos] = inputQueue[0];
             inputQueue.shift();
-            console.log(inputQueue);
+        } else if (symbol === '~') {
+            console.log("at pos: " + pos);
+            console.log(memory);
+        } else if (symbol === '*') {
+            await sleep(1000);
         }
     }
     return instructions.length;
