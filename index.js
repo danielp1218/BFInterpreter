@@ -94,8 +94,9 @@ async function run(start) {
             inputQueue.shift();
         } else if (symbol === '~') {
             console.log("at pos: " + pos);
-            console.log(memory);
+            console.log(JSON.parse(JSON.stringify(memory)));
         } else if (symbol === '*') {
+            out.scrollTop = out.scrollHeight;
             await sleep(1000);
         }
     }
